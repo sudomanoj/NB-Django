@@ -5,6 +5,9 @@ def home(request):
     context = {'name':'Network Adapter', 'price':1500}
     return render(request, 'home.html', context)
 
+def contact(request):
+    return render(request, 'contact.html')
+
 def json_home(request):
     context = {'company':'Nyxusbyte', 'sector':'IT'}
     return JsonResponse(context)

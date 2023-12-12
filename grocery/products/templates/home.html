@@ -1,14 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% block main-content %}
     {% if name and price %}{% endif %}
-    <h1>Product Page!</h1>
+    <h1 class='text-center text-danger'>Product Page!</h1>
+    <div class='container bg-primary text-white text-center py-3'>
     <p>Name: {{ name }} </p>
     <p>Price: {{ price }} </p>
-</body>
-</html>
+    </div>
+{% endblock main-content %}
