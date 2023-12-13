@@ -1,0 +1,13 @@
+{% extends "myapp/base.html" %}
+
+{% block main-content %}
+<h1 class='text-center bg-dark text-white py-3'>Book Details</h1>
+{% for book in books %}
+<div class='text-center my-1 text-white bg-secondary py-3'>
+    <p>SN: {{forloop.counter}} </p>
+    <p>Book Name: {{ book.title }} </p>
+    <p>Author Name: {{book.author.name}} </p>
+    <p>Published Date: {{book.published_date}}</p>
+</div>
+{% endfor %}
+{% endblock main-content %}
