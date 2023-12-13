@@ -20,4 +20,5 @@ class Book(models.Model):
     
     class Meta:
         verbose_name = 'Pustak'
+        unique_together = [['title', 'author']]
 
