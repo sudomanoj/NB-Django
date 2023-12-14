@@ -1,0 +1,22 @@
+{% extends "product/base.html" %}
+
+{% block select-related %}
+<div class='bg-secondary text-white text-center py-3'>
+<h1>Select Related</h1>
+{% for enrollment in enrollments %}
+<p>Name: {{enrollment.student.name}}</p>
+<p>Roll: {{enrollment.student.roll}}</p>
+<p>Enrollment Date: {{enrollment.date}}</p>
+<hr>
+{% endfor %}
+</div>
+{% endblock select-related %}
+
+{% block prefetch-related %}
+<div class='bg-secondary text-white text-center py-3'>
+{% for course in courses %}
+    <p>Course Name: {{course.title}}</p>
+    <p>Enrolled By: {{course.student.name}}</p>
+    {% endfor %}
+</div>
+{% endblock prefetch-related %}
