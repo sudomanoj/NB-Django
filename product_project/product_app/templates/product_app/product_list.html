@@ -1,0 +1,14 @@
+{% extends "product_app/base.html" %}
+
+{% block main-content %}
+<div class="row">
+    <div class="col-sm-8 mx-auto text-white bg-secondary text-center">
+        {% for product in products %}
+        <a href="{% url "product_detail" product.id %}" class='text-white text-center'> {{product.name}} </a>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock main-content %}
+
