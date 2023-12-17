@@ -4,7 +4,7 @@
 <div class='text-center bg-secondary text-white'>
 {% if posts %}
 {% for post in posts %}
-<a href="{% url "post_detail" %}" class='text-white'> {{post}} </a>
+<a href="{% url "post_detail" post.id %}" class='text-white'> {{post}} </a>
 <hr>
 {% endfor %}
 {% endif %}

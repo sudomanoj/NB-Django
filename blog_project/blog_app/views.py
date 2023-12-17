@@ -4,12 +4,15 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 # Create your views here.
+def home(request):
+    return render(request, 'blog_app/base.html')
+
 def show_posts_list(request):
     posts = Post.objects.all()
     return render(request, 'blog_app/post_list.html', {'posts':posts})
 
-def show_posts_detail(request):
-    posts = Post.objects.all()
+def show_posts_detail(request, id):
+    posts = Post.objects.get(id=id)
     return render(request, 'blog_app/post_detail.html', {'posts':posts})
 
 def create_post(request):
