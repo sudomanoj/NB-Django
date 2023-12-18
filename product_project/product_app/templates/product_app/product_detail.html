@@ -8,6 +8,11 @@
 
         <p class="text-white">{{product.price}}</p>
         <p class="text-white"> {{product.description}} </p>
+        <a href="{% url "update_product" product.id %}" class='btn btn-primary mb-1'>Update</a>
+        <form action="{% url "delete_product" product.id %}" method='post'>
+            {% csrf_token %}
+        <button class='btn btn-danger mb-5'>Delete</button>
+        </form>
     </div>
 </div>
 {% endblock main-content %}

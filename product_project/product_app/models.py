@@ -15,3 +15,11 @@ class Product(models.Model):
     def __str__(self):
         return self.name
     
+class Shopkeeper(models.Model):
+    name = models.CharField(max_length=100)
+    location = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+    
+    

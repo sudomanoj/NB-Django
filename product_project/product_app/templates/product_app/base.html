@@ -9,6 +9,16 @@
 </head>
 <body>
     {% block nav-bar %}{% include "product_app/navbar.html" %}{% endblock nav-bar %}
-    {% block main-content %}{% endblock main-content %}
+    {% block main-content %}
+    {% endblock main-content %}
+    {% block message %}
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endblock message %}
 </body>
 </html>

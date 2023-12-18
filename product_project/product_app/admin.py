@@ -1,5 +1,5 @@
 from django.contrib import admin
-from product_app.models import Product
+from product_app.models import Product, Shopkeeper
 from django.utils.html import format_html
 # Register your models here.
 
@@ -14,3 +14,7 @@ class ProductAdmin(admin.ModelAdmin):
 
     display_image.short_description = 'Image'
     display_image.allow_tags = True
+    
+@admin.register(Shopkeeper)
+class ShopkeeperAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'location']
