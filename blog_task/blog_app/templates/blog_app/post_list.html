@@ -1,0 +1,13 @@
+{% extends "blog_app/base.html" %}
+
+{% block main-content %}
+<div class="row">
+    <div class="col-sm-8 mx-auto text-white bg-secondary text-center">
+        {% for post in posts %}
+        <a href="{% url "post_detail" post.id %}" class='text-white text-center'> {{post.title}} </a>
+        <hr>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock main-content %}

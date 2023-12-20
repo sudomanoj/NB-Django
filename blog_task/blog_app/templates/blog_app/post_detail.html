@@ -1,0 +1,17 @@
+{% extends "blog_app/base.html" %}
+
+{% block main-content %}
+<div class="row">
+    <div class="col-sm-8 mx-auto text-white bg-secondary text-center">
+        <p class="text-white"> <h1> {{post.title}} </h1> </p>
+        <p class="text-white">{{post.content}}</p>
+        <p class="text-white"> Created at: {{post.create_date}} </p>
+        <p class="text-white"> Created by: {{post.author}} </p>
+        <a href="{% url "update_post" post.id %}" class='btn btn-primary mb-1'>Update</a>
+        <form action="{% url "delete_post" post.id %}" method='post'>
+            {% csrf_token %}
+        <button class='btn btn-danger mb-5'>Delete</button>
+        </form>
+    </div>
+</div>
+{% endblock main-content %}
