@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 def home(request):
     return render(request, 'blog_app/base.html')
 
-@login_required(login_url='login')
+@login_required(login_url='user_login')
 def post_list(request):
     posts = Post.objects.all()
     return render(request, 'blog_app/post_list.html', {'posts':posts})
@@ -66,11 +66,13 @@ def delete_post(request, id):
         return HttpResponse('<h1>You are not permitted to Delete</h1>')
     
     
+from django.contrib import messages
+
 def user_login(request):
     if not request.user.is_authenticated:
         form = LoginForm()
         if request.method == 'POST':
-            form = LoginForm(request.POST)
+            form = LoginForm(request=request, data=request.POST)
             if form.is_valid():
                 username = form.cleaned_data['username']
                 password = form.cleaned_data['password']
@@ -79,11 +81,15 @@ def user_login(request):
                     login(request, user)
                     messages.success(request, 'Logged in successfully!')
                     return redirect(reverse('home'))
-        
-        return render(request, 'blog_app/login.html', {'form':form})
-        
+                else:
+                    messages.error(request, 'Invalid username or password.')
+            else:
+                messages.error(request, 'Form is not valid.')
+
+        return render(request, 'blog_app/login.html', {'form': form})
     else:
         return redirect(reverse('home'))
+
 
 def user_signup(request):
     if not request.user.is_authenticated:
@@ -92,7 +98,15 @@ def user_signup(request):
             form = SignupForm(request.POST)
             if form.is_valid():
                 form.save()
-                return redirect(reverse('login'))
+                return redirect(reverse('user_login'))
 
         return render(request, 'blog_app/signup.html', {'form':form})
+    else:
+        return HttpResponse('<h1>You must logout to sign up</h1>')
 
+def user_logout(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return redirect('home')
+    else:
+        return HttpResponse('You must be loggedin first')
