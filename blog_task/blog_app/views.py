@@ -1,14 +1,15 @@
 from django.shortcuts import render, reverse, get_object_or_404, redirect
 from django.http import HttpResponse
-from blog_app.forms import PostForm, Post
+from blog_app.forms import PostForm, LoginForm, SignupForm, Post
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 def home(request):
     return render(request, 'blog_app/base.html')
 
-@login_required(login_url='/admin')
+@login_required(login_url='login')
 def post_list(request):
     posts = Post.objects.all()
     return render(request, 'blog_app/post_list.html', {'posts':posts})
@@ -63,3 +64,35 @@ def delete_post(request, id):
         return redirect(reverse('post_list'))
     else:
         return HttpResponse('<h1>You are not permitted to Delete</h1>')
+    
+    
+def user_login(request):
+    if not request.user.is_authenticated:
+        form = LoginForm()
+        if request.method == 'POST':
+            form = LoginForm(request.POST)
+            if form.is_valid():
+                username = form.cleaned_data['username']
+                password = form.cleaned_data['password']
+                user = authenticate(username=username, password=password)
+                if user is not None:
+                    login(request, user)
+                    messages.success(request, 'Logged in successfully!')
+                    return redirect(reverse('home'))
+        
+        return render(request, 'blog_app/login.html', {'form':form})
+        
+    else:
+        return redirect(reverse('home'))
+
+def user_signup(request):
+    if not request.user.is_authenticated:
+        form = SignupForm()
+        if request.method == 'POST':
+            form = SignupForm(request.POST)
+            if form.is_valid():
+                form.save()
+                return redirect(reverse('login'))
+
+        return render(request, 'blog_app/signup.html', {'form':form})
+
